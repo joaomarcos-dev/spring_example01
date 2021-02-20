@@ -4,21 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component //Make this class a spring managed bean, that are registered in the ApplicationContext
-public class BinarySearchImpl{
+public class ClassImpl01{
 
 	//The member that will sort the array when needed	
 	@Autowired // The SortAlgorithm is a dependency of BinarySearchImpl
-	private SortAlgorithm sa;		
+	private Interface01 bubbleSortAlgorithm;//Autowiring by type and name, using the same name of the implementation in camelCame format 	
 	
-	public BinarySearchImpl(SortAlgorithm sa) {
+	public ClassImpl01(Interface01 sa) {
 		super();
-		this.sa = sa;
+		this.bubbleSortAlgorithm = sa;
 	}
 
 	public int binarySearch(int [] array, int  searchingNumber) {
 		//sort the array
-		int [] sortedArray = sa.sort(array);
-		System.out.println(sa);
+		int [] sortedArray = bubbleSortAlgorithm.sort(array);
+		System.out.println(bubbleSortAlgorithm);
 		
 		//search for number
 		
