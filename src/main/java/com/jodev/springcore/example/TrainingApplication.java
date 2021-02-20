@@ -4,12 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
-public class TrainingApplication {
+public class  TrainingApplication{
 	
 	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
@@ -18,9 +19,10 @@ public class TrainingApplication {
 		String s = sc.next();
 		
 		for(Method m : TrainingApplication.class.getDeclaredMethods()){
-				if(m.getName() == "test"+s) {
-				m.setAccessible(true);
-				m.invoke(null);
+				if(m.getName().equals("test"+s)) {
+					System.out.println("Ruuning: "+ m.getName());
+					m.setAccessible(true);
+					m.invoke(new TrainingApplication());
 			}
 		}
 	}
@@ -29,7 +31,7 @@ public class TrainingApplication {
 		
 		//Getting the Beans from Spring IOC
 		ApplicationContext ac = SpringApplication.run(TrainingApplication.class);
-		ClassImpl01 bs = ac.getBean(ClassImpl01.class);
+		Class01 bs = ac.getBean(Class01.class);
 		
 		//Test array
 		int result = bs.binarySearch(new int []  {5,48,96,2,100,25,6}, 8);
@@ -38,5 +40,42 @@ public class TrainingApplication {
 		SpringApplication.run(TrainingApplication.class);
 	}
 	
+	public void test02() {
+		
+		System.out.println("Testing @Qualifier");
+		
+		//Getting the Beans from Spring IOC
+		ApplicationContext ac = SpringApplication.run(TrainingApplication.class);
+		Class02 bs = ac.getBean(Class02.class);
+		
+		//Test array
+		int result = bs.binarySearch(new int []  {5,48,96,2,100,25,6}, 8);
+		
+		System.out.println(result);
+		SpringApplication.run(TrainingApplication.class);
+	}
 	
+public void test03() {
+		System.out.println("Testing @Scope");
+		
+		//Getting the Beans from Spring IOC
+		ApplicationContext ac = SpringApplication.run(TrainingApplication.class);
+		
+		Class02 c2_a = ac.getBean(Class02.class);
+		Class02 c2_b = ac.getBean(Class02.class);
+		
+		System.out.println("Same instance");
+		System.out.println(c2_a);
+		System.out.println(c2_b);
+		
+		Class03 c3_a = ac.getBean(Class03.class);
+		Class03 c3_b = ac.getBean(Class03.class);
+		
+		System.out.println("Different instances");
+		System.out.println(c3_a);
+		System.out.println(c3_b);
+		
+		SpringApplication.run(TrainingApplication.class);
+		
+	}
 }
