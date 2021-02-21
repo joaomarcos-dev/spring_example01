@@ -55,7 +55,7 @@ public class  TrainingApplication{
 		SpringApplication.run(TrainingApplication.class);
 	}
 	
-public void test03() {
+	public void test03() {
 		System.out.println("Testing @Scope");
 		
 		//Getting the Beans from Spring IOC
@@ -75,6 +75,57 @@ public void test03() {
 		System.out.println(c3_a);
 		System.out.println(c3_b);
 		
+		SpringApplication.run(TrainingApplication.class);
+		
+	}
+	
+	public void test0() {
+		System.out.println("Testing @Scope");
+		
+		//Getting the Beans from Spring IOC
+		ApplicationContext ac = SpringApplication.run(TrainingApplication.class);
+		
+		Class02 c2_a = ac.getBean(Class02.class);
+		Class02 c2_b = ac.getBean(Class02.class);
+		
+		System.out.println("Same instance");
+		System.out.println(c2_a);
+		System.out.println(c2_b);
+		
+		Class03 c3_a = ac.getBean(Class03.class);
+		Class03 c3_b = ac.getBean(Class03.class);
+		
+		System.out.println("Different instances");
+		System.out.println(c3_a);
+		System.out.println(c3_b);
+		
+		SpringApplication.run(TrainingApplication.class);
+
+		
+	}
+	
+	public void test04() {
+		System.out.println("Testing @Scope");
+		
+		//Getting the Beans from Spring IOC
+		ApplicationContext ac = SpringApplication.run(TrainingApplication.class);
+
+		Class04 c4_a = ac.getBean(Class04.class);
+		Class04 c4_b = ac.getBean(Class04.class);
+		
+		System.out.println("Same instance");
+		System.out.println(c4_a);
+		System.out.println(c4_b);
+	
+		System.out.println("This instances return the same ClassDependency04 dependecy instance");
+		System.out.println(c4_a.getCd04_b());
+		System.out.println(c4_b.getCd04_b());
+
+		System.out.println("But this instances does not return the ClassDependency04 dependecy instance, due to the proxy mode");
+		System.out.println(c4_a.getCd04());
+		System.out.println(c4_b.getCd04());
+		
+	
 		SpringApplication.run(TrainingApplication.class);
 		
 	}
