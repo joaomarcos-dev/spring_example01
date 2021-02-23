@@ -4,12 +4,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Scanner;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+
+import com.jodev.springcore.outcomponentscan.ClassOutOfComponentScan;
 
 @SpringBootApplication
+//@ComponentScan("com.jodev.springcore.outcomponentscan") test06
 public class  TrainingApplication{
 	
 	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -79,7 +84,7 @@ public class  TrainingApplication{
 		
 	}
 	
-	public void test0() {
+	public void test04() {
 		System.out.println("Testing @Scope");
 		
 		//Getting the Beans from Spring IOC
@@ -104,7 +109,7 @@ public class  TrainingApplication{
 		
 	}
 	
-	public void test04() {
+	public void test05() {
 		System.out.println("Testing @Scope");
 		
 		//Getting the Beans from Spring IOC
@@ -127,6 +132,32 @@ public class  TrainingApplication{
 		
 	
 		SpringApplication.run(TrainingApplication.class);
+		
+	}
+	
+	public void test06() {
+		System.out.println("Testing @ComponentScan");
+		System.out.println("Should throw an error if missing @ComponentScan in the @SpringBoot application");
+		
+		//Getting the Beans from Spring IOC
+		ApplicationContext ac = SpringApplication.run(TrainingApplication.class);
+
+		ClassOutOfComponentScan cofcs = ac.getBean(ClassOutOfComponentScan.class);
+		cofcs.doSomething();
+		
+		SpringApplication.run(TrainingApplication.class);
+		
+	}
+	
+	
+	public void test07() {
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		
+		//Getting the Beans from Spring IOC
+		ApplicationContext ac = SpringApplication.run(TrainingApplication.class);
+		
+		Class05_LifeCycle c = ac.getBean(Class05_LifeCycle.class);
+		c.doSomething();
 		
 	}
 }
