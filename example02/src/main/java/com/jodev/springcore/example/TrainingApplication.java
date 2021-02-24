@@ -10,17 +10,20 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.jodev.springcore.outcomponentscan.ClassOutOfComponentScan;
 
 @Configuration
 @ComponentScan //Needed for a non Springboot; look for components in the same package
+@PropertySource("classpath:application.properties")
 public class  TrainingApplication{
 	
 	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
 		//Which method to run 
+		System.out.println("Type the test number");
 		Scanner sc = new Scanner(System.in);
 		String s = sc.next();
 		
@@ -161,6 +164,19 @@ public class  TrainingApplication{
 		
 		Class04Xml c = ac.getBean(Class04Xml.class);
 		c.doSomething();	
+		
+	}
+	
+	public void test09() {
+		System.out.println("Testing @Value");
+//		System.out.println("Should throw an error if missing @ComponentScan in the @SpringBoot application");
+		
+		//Getting the Beans from Spring IOC
+		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplication.class);
+
+		Class06 c = ac.getBean(Class06.class);
+		System.out.println("retrived from the application.properties: " + c.getDbUrl());
+		System.out.println("retrived from the application.properties: " + c.getDbFileUrl());
 		
 	}
 }
