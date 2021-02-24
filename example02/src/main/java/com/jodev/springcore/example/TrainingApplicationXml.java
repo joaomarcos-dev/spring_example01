@@ -14,9 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.jodev.springcore.outcomponentscan.ClassOutOfComponentScan;
 
-@Configuration
-@ComponentScan //Needed for a non Springboot; look for components in the same package
-public class  TrainingApplication{
+public class  TrainingApplicationXml{
 	
 	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		
@@ -24,11 +22,11 @@ public class  TrainingApplication{
 		Scanner sc = new Scanner(System.in);
 		String s = sc.next();
 		
-		for(Method m : TrainingApplication.class.getDeclaredMethods()){
+		for(Method m : TrainingApplicationXml.class.getDeclaredMethods()){
 				if(m.getName().equals("test"+s)) {
 					System.out.println("Running: "+ m.getName());
 					m.setAccessible(true);
-					m.invoke(new TrainingApplication());
+					m.invoke(new TrainingApplicationXml());
 			}
 		}
 	}
@@ -37,7 +35,7 @@ public class  TrainingApplication{
 		
 		//Getting the Beans from Spring IOC
 		try(
-				AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplication.class);
+				AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplicationXml.class);
 				){//even if any exceptions occurs here,  the AnnotationConfigApplicationContext will be closed because it implements AutoCloseble interface
 		
 			Class01 bs = ac.getBean(Class01.class);
@@ -54,7 +52,7 @@ public class  TrainingApplication{
 		System.out.println("Testing @Qualifier");
 		
 		//Getting the Beans from Spring IOC
-		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplication.class);
+		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplicationXml.class);
 		Class02 bs = ac.getBean(Class02.class);
 		
 		//Test array
@@ -68,7 +66,7 @@ public class  TrainingApplication{
 		System.out.println("Testing @Scope");
 		
 		//Getting the Beans from Spring IOC
-		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplication.class);
+		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplicationXml.class);
 		
 		Class02 c2_a = ac.getBean(Class02.class);
 		Class02 c2_b = ac.getBean(Class02.class);
@@ -89,7 +87,7 @@ public class  TrainingApplication{
 		System.out.println("Testing @Scope");
 		
 		//Getting the Beans from Spring IOC
-		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplication.class);
+		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplicationXml.class);
 		
 		Class02 c2_a = ac.getBean(Class02.class);
 		Class02 c2_b = ac.getBean(Class02.class);
@@ -111,7 +109,7 @@ public class  TrainingApplication{
 		System.out.println("Testing @Scope");
 		
 		//Getting the Beans from Spring IOC
-		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplication.class);
+		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplicationXml.class);
 
 		Class04 c4_a = ac.getBean(Class04.class);
 		Class04 c4_b = ac.getBean(Class04.class);
@@ -135,7 +133,7 @@ public class  TrainingApplication{
 		System.out.println("Should throw an error if missing @ComponentScan in the @SpringBoot application");
 		
 		//Getting the Beans from Spring IOC
-		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplication.class);
+		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplicationXml.class);
 
 		ClassOutOfComponentScan cofcs = ac.getBean(ClassOutOfComponentScan.class);
 		cofcs.doSomething();
@@ -146,7 +144,7 @@ public class  TrainingApplication{
 		Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 		//Getting the Beans from Spring IOC
-		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplication.class);
+		ApplicationContext ac = new AnnotationConfigApplicationContext(TrainingApplicationXml.class);
 		
 		Class05_LifeCycle c = ac.getBean(Class05_LifeCycle.class);
 		c.doSomething();
@@ -154,6 +152,17 @@ public class  TrainingApplication{
 	}
 	
 	public void test08() {
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		
+		//Getting the Beans from Spring IOC
+		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		
+		Class04Xml c = ac.getBean(Class04Xml.class);
+		c.doSomething();	
+		
+	}
+	
+	public void test09() {
 		Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 		//Getting the Beans from Spring IOC
