@@ -12,6 +12,13 @@
 
     <!-- bean definitions here -->
     <bean id="controller01" class="com.jodev.spring.springmvc.controllers.Controller01"></bean>
+    <bean id="controller02" class="com.jodev.spring.springmvc.controllers.Controller02"></bean>
+    
+    <!-- View Resolver; configure the bean InternalResourceViewRsolver in such a way that it help the DispatcherServlet finding the view	 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/view/"></property>
+    	<property name="suffix" value=".jsp"></property>
+    </bean>
     
 
 </beans>
