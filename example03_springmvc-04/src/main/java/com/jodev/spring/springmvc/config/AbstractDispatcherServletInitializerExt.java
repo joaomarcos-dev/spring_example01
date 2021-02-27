@@ -12,30 +12,30 @@ public class AbstractDispatcherServletInitializerExt extends AbstractDispatcherS
 		LogNdc.log();
 		
 		// First instantiating the context by hand
-		AnnotationConfigWebApplicationContext root = new AnnotationConfigWebApplicationContext();
+		AnnotationConfigWebApplicationContext localDispatcherServletContext = new AnnotationConfigWebApplicationContext();
 
 		//Register the @configuration class that substitutes XML and configures the IOC
-		root.register(WebConfig.class);
+		localDispatcherServletContext.register(WebConfig.class);
 		
 //		for the automatically created DispatcherServlet local IOC
-		return root;
+		return localDispatcherServletContext;
 	}
 
 	@Override
 	protected String[] getServletMappings() {
 		//The mapping for the automatically created DispatcherServlet
-		return new String [] {"/"};//should not use *
+		return new String [] {"/b/*"};//should use * here
 	}
 
 	@Override
 	protected WebApplicationContext createRootApplicationContext() {
 		LogNdc.log();
-		
-		// First instantiating the context by hand
-		AnnotationConfigWebApplicationContext root = new AnnotationConfigWebApplicationContext();
-
-		//Register the @configuration class that substitutes XML and configures the IOC
-		root.register(WebConfig.class);
 		return null;
+	}
+	
+	//Override the default name because we have two DispatcherServlet created automatically
+	@Override
+	protected String getServletName() {
+		return "Dispatcher01";
 	}
 }
