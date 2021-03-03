@@ -1,4 +1,4 @@
-package com.jodev.spring.springmvc.controllers;
+package com.jodev.spring.springmvc.components;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;

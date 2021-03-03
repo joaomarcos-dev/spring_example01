@@ -1,4 +1,4 @@
-package com.jodev.spring.springmvc.controllers;
+package com.jodev.spring.springmvc.components;
 
 import org.springframework.stereotype.Service;
 
